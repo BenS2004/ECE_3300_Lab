@@ -45,6 +45,6 @@ module four_to_sixteen_decoder_gate(
     assign dest[12] = c0n & c1n & c2 & c3 & enable;
     assign dest[13] = c0 & c1n & c2 & c3 & enable;
     assign dest[14] = c0n & c1 & c2 & c3 & enable;
-    assign dest[15] = c0 & c2 & c2 & c3 & enable;    
+    assign dest[15] = c0 & c1 & c2 & c3 & enable;    
     
 endmodule
