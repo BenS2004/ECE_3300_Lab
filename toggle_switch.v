@@ -35,8 +35,6 @@ module toggle_switch(
     debounce db_2(.clk(clk), .btn_in(rst), 
             .btn_clean(rst_clean));
             
-    //assign rst_clean = 1;
-    //assign rst_clean = 0;
     
     initial begin
         state = 0;
