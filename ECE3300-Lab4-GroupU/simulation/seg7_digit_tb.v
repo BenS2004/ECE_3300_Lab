@@ -1,14 +1,14 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Cal Poly Pomona
+// Engineer: Robert Stevenson
 // 
 // Create Date: 07/08/2026 03:32:54 PM
-// Design Name: 
+// Design Name: Seven Segment Display Testbench
 // Module Name: digit_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name: ECE3300_Lab4_GroupU
+// Target Devices: Artyx 7
+// Tool Versions: Vivado 2025.2
 // Description: 
 // 
 // Dependencies: 
@@ -18,7 +18,6 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
 
 module seg7_digit_tb(
                 );
