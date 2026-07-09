@@ -30,9 +30,7 @@ module seg7_switching_tb(
     wire [6:0] Cnode_tb;
     wire dp_tb;
     wire [7:0] AN_tb;
-    
-    integer i;
-                       
+                           
     seg7_driver mux_tb (
                         .clk(clk_tb),
                         .rst_n(rst_n_tb),
