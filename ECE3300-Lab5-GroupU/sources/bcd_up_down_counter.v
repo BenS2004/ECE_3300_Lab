@@ -30,14 +30,19 @@ module bcd_up_down_counter(
     reg [8:0] count;
     reg [4:0] ones, tens;
     
+    initial begin count = 0; BCD = 0; end
+    reg[4:0] i;
     always@(posedge clk | rst)begin
-        if(rst) count = 0;
+        if(rst) BCD = 0;
         else begin
-            if(dir == 0) count = count+1;
-            else count = count - 1;
-            ones = count % 10;
-            tens = count / 10;
-            BCD = {tens, ones};
+            if(dir == 0)begin
+                BCD = (BCD + 1) % 8'h9a;
+                if(BCD[3:0] >= 4'b1010) BCD = BCD + 4'b0110;
+            end
+            else begin 
+                BCD = ((BCD + 8'h9a) - 1) % 8'h9a;
+                if(BCD[3:0] == 4'b1111) BCD = BCD - 4'b0110;
+            end            
         end
     end             
     
