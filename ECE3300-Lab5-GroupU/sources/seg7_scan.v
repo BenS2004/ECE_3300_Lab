@@ -22,32 +22,37 @@
 
 module seg7_scan(
     input [7:0] BCD,
-    output reg [7:0] AN,
+    output wire [7:0] AN,
     output reg [6:0] SEG,
     input clk
     );
     
-    reg [17:0] temp;
+    reg [19:0] temp;
     reg [3:0] digit;
-    
+    reg [7:0] AN_tmp;
     always@(posedge clk)
         temp = temp + 1;
-    wire s = temp[17];
+    wire[2:0] s = temp[19:17];
        
     always @(s, BCD) begin
         case(s)
-            1'b0: digit = BCD[3:0];
-            1'b1: digit = BCD[7:4];
+           3'b0: digit = BCD[3:0];
+           3'b1: digit = BCD[7:4];
+           default: digit = 0;
         endcase
     end
     
     always @(s) begin
         case(s)
-            1'b0: AN = 11111110;
-            1'b1: AN = 11111101;
-            default: AN = 11111111;
+            3'd0:AN_tmp=8'b11111110;3'd1:AN_tmp=8'b11111101;
+            3'd2:AN_tmp=8'b11111011;3'd3:AN_tmp=8'b11110111;
+            3'd4:AN_tmp=8'b11101111;3'd5:AN_tmp=8'b11011111;
+            3'd6:AN_tmp=8'b10111111;3'd7:AN_tmp=8'b01111111;
+            default:AN_tmp=8'b11111111;
         endcase
     end
+    
+    assign AN = AN_tmp;
     
     always @(digit)begin
         case(digit)
@@ -59,3 +64,4 @@ module seg7_scan(
     end
     
 endmodule
+
