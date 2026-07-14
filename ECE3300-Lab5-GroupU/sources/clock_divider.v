@@ -20,13 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clock_divider(
+module clock_divider #(parameter size = 32)(
     input wire clk,
-    output reg [31:0] clk_div
+    output wire [31:0] clk_div
     );
-    initial clk_div = 0;
+    
+    reg [size-1:0] counter;
+    initial counter = 0;
+    assign clk_div = counter[size-1:size-32];
     always@(posedge clk)begin
-        clk_div = clk_div + 1;
+        counter = counter + 1;
     end
     
 endmodule
