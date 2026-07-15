@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: Cal Poly Pomona
-// Engineer: Robert Stevenson
+// Engineer: Robert Stevenson & Ben Robles
 // 
 // Create Date: 07/10/2026 03:10:25 PM
 // Design Name: Clock Divider
@@ -15,21 +15,22 @@
 // 
 // Revision:
 // Revision 0.01 - File Created
+// Revision 0.02 - Simplified design
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clock_divider #(parameter size = 32)(
-    input wire clk,
-    output wire [31:0] clk_div
-    );
+module clock_divider (
+                        input wire clk,
+                        output reg [31:0] clk_div
+                     );
     
-    reg [size-1:0] counter;
-    initial counter = 0;
-    assign clk_div = counter[size-1:size-32];
-    always@(posedge clk)begin
-        counter = counter + 1;
+    initial clk_div = 0;
+    
+    always@(posedge clk)
+    begin
+        clk_div <= clk_div + 1;
     end
     
 endmodule
