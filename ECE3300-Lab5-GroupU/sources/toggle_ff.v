@@ -1,38 +1,25 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 07/12/2026 02:41:35 PM
-// Design Name: 
-// Module Name: toggle_ff
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-module toggle_ff(
-    input wire clk,
-    input wire rst,
-    input wire data,
-    output reg state
-    );
+module toggle_ff (
+                        input clk,
+                        input rst_n,
+                        input btn_raw,
+                        output reg state
+                     );
+    wire btn_clean;
+    reg btn_prev;
     
-    initial state = 0;
+    debounce db (.clk(clk), .btn_raw(btn_raw), .btn_clean(btn_clean));
     
     always @(posedge clk) begin
-        if(rst == 1) state = 0; else begin
-            if(data == 1) state = ~state;
+        if (!rst_n) begin
+            state <= 1;
+            btn_prev <= 0;
+        end 
+        else begin
+            if (btn_clean && !btn_prev)
+            state <= ~state;
+            btn_prev <= btn_clean;
         end
     end
-    
 endmodule
