@@ -1,62 +1,88 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Cal Poly Pomona
+// Engineer: Robert Stevenson & Ben Robles
 // 
 // Create Date: 07/10/2026 03:10:25 PM
-// Design Name: 
+// Design Name: bcd counter
 // Module Name: top_lab5
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name: ECE 3300 Group U Lab 5
+// Target Devices: Nexys a7
+// Tool Versions: Vivado 2025.2
 // Description: 
 // 
 // Dependencies: 
 // 
 // Revision:
 // Revision 0.01 - File Created
+// Revision 0.02 - Simplified design
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module top_lab5(
-    input CLK100MHZ, BTNC, BTNU,
-    input [4:0] SW,
-    output [6:0] SEG,
-    output [7:0] AN,
-    output [12:0] LED
-    );
+                    input CLK100MHZ, 
+                    input BTNC, 
+                    input BTNU,
+                    input [4:0] SW,
+                    output wire [6:0] seg,
+                    output wire [7:0] an,
+                    output wire [12:0] LED
+               );
+               
     wire[31:0] counter;
-    wire slow_clk, rst, dir_clean, dir;
+    wire slow_clk; 
+    
     wire[7:0] BCD;
     
-    clock_divider #(.size(50))clock_division(.clk(CLK100MHZ), .clk_div(counter));   
+    wire rst;
+    wire rst_n;
     
-    mux32x1 counter_multiplexer(.in(counter), .sel(SW[4:0]), .out(slow_clk));
+    wire dir;
     
-    debounce debounce_rst(.btn_raw(BTNC), .btn_clean(rst), .clk(CLK100MHZ));
+    assign rst_n = ~rst;
     
-    debounce debounce_dir(.btn_raw(BTNU), .btn_clean(dir_clean), .clk(CLK100MHZ));
+    clock_divider clock_division(
+                                     .clk(CLK100MHZ), 
+                                     .clk_div(counter)
+                                );   
     
-    toggle_ff toggle_dir(.clk(CLK100MHZ), .rst(rst), .data(dir_clean), .state(dir));
+    mux32x1 counter_multiplexer(
+                                    .in(counter), 
+                                    .sel(~SW),
+                                    .out(slow_clk)
+                               );
     
-    bcd_up_down_counter bcd_counter(.clk(slow_clk), .rst(rst), .dir(dir), .BCD(BCD));
+    debounce debounce_rst(
+                              .btn_raw(BTNC),
+                              .btn_clean(rst), 
+                              .clk(CLK100MHZ)
+                         );                                  
     
-    assign LED[0] = SW[0];
-    assign LED[1] = SW[1];
-    assign LED[2] = SW[2];
-    assign LED[3] = SW[3];
-    assign LED[4] = SW[4];
-    assign LED[5] = BCD[0];
-    assign LED[6] = BCD[1];
-    assign LED[7] = BCD[2];
-    assign LED[8] = BCD[3];
-    assign LED[9] = BCD[4];
-    assign LED[10] = BCD[5];
-    assign LED[11] = BCD[6];
-    assign LED[12] = BCD[7];
-
-   seg7_scan seg7_out(.BCD(BCD), .AN(AN), .SEG(SEG), .clk(CLK100MHZ));
+    toggle_ff toggle_dir(
+                             .clk(CLK100MHZ),
+                             .rst_n(rst_n),
+                             .btn_raw(BTNU),
+                             .state(dir)
+                        );
     
+    bcd_up_down_counter bcd_counter(
+                                        .clk(slow_clk), 
+                                        .rst_n(rst_n),
+                                        .dir(dir),
+                                        .BCD(BCD)
+                                   );
+    
+    seg7_scan seg7_out(
+                           .BCD(BCD), 
+                           .AN(an),
+                           .SEG(seg),
+                           .clk(CLK100MHZ),
+                           .rst_n(rst_n)
+                      );
+   
+   assign LED[4:0] = SW;
+   assign LED[12:5] = BCD;
+       
 endmodule
