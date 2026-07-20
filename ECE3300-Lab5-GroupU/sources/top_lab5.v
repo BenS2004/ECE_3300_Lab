@@ -4,7 +4,7 @@
 // Engineer: Robert Stevenson & Ben Robles
 // 
 // Create Date: 07/10/2026 03:10:25 PM
-// Design Name: bcd counter
+// Design Name: lab 5 top
 // Module Name: top_lab5
 // Project Name: ECE 3300 Group U Lab 5
 // Target Devices: Nexys a7

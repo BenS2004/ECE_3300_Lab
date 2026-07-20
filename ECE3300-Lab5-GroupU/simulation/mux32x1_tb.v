@@ -22,7 +22,7 @@
 
 module mux32x1_tb(
     
-    );
+                 );
     
     reg[31:0] in;
     reg[4:0] sel;

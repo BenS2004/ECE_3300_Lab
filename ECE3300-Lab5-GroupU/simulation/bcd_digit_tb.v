@@ -64,7 +64,7 @@ module bcd_digit_tb(
         rst_n_tb = 1;
         #1;
         if(digit_tb !== 4'd0) begin     // Test 1: Reset test
-            $display("Fail: digit failed to settle on reset         en = %b, digit = %d", en_tb, digit_tb);
+            $display("Fail: digit failed to settle on reset         rst_n = %b, digit = %d", rst_n_tb, digit_tb);
             $fatal;
         end
         for(i = 0; i < 10; i = i + 1) begin  // Test 2: Incrementing
@@ -76,19 +76,19 @@ module bcd_digit_tb(
                 expected = expected + 4'd1;
             end
             #1;
-            if(digit_tb != expected) begin  // Digit test
+            if(digit_tb !== expected) begin  // Digit test
                 $display("Fail: Digit did not increment properly        digit = %d, expected = %d", digit_tb, expected);
                 $fatal;
             end
             if(digit_tb == 4'd9) begin
-                if(rollover_tb != 1'b1) begin // Rollover signal test
+                if(rollover_tb !== 1'b1) begin // Rollover signal test
                     $display("Fail: Rollover signal did not activate properly       digit = %d, rollover = %d", digit_tb, rollover_tb);
                     $fatal;
                 end
             end
         end 
 
-        expected = 4'd1;
+        expected = 4'd1;    // Account for extra up count before switching to down
         
         @(posedge clk_tb);
         #1;
@@ -102,12 +102,12 @@ module bcd_digit_tb(
                 expected = expected - 4'd1;
             end
             #1;
-            if(digit_tb != expected) begin  // Digit test
+            if(digit_tb !== expected) begin  // Digit test
                 $display("Fail: Digit did not decrement properly        digit = %d, expected = %d", digit_tb, expected);
                 $fatal;
             end
             if(digit_tb == 4'd0) begin
-                if(rollover_tb != 1'b1) begin // Rollover signal test
+                if(rollover_tb !== 1'b1) begin // Rollover signal test
                     $display("Fail: Rollover signal did not activate properly       digit = %d, rollover = %d", digit_tb, rollover_tb);
                     $fatal;
                 end
@@ -119,14 +119,14 @@ module bcd_digit_tb(
         en_tb = 0;
         @(posedge clk_tb);
         #1;
-        if(digit_tb !== 4'd8) begin            
+        if(digit_tb !== 4'd8) begin     // Test 4: Enable test      
         $display("Fail: Operated while enable low");
         $fatal;
         end
 
         @(posedge clk_tb);
         #1;
-        rst_n_tb = 0; // Test 4: Final reset test
+        rst_n_tb = 0;               // Test 5: Final reset test
         @(posedge clk_tb);
         #3;
         if(digit_tb !== 4'd0) begin            

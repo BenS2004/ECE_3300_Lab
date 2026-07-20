@@ -1,31 +1,11 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 07/10/2026 03:10:25 PM
-// Design Name: 
-// Module Name: mux32x1
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module mux32x1(
-    input wire [31:0] in,
-    input wire [4:0] sel,
-    output wire out
-    );
-    
+                input wire [31:0] in,
+                input wire [4:0] sel,
+                output wire out
+              );
+
     wire [15:0] level1;
     wire [7:0] level2;
     wire [3:0] level3;
@@ -46,6 +26,5 @@ module mux32x1(
             mux2x1 M4(.a(level3[2*i]), .b(level3[2*i+1]), .sel(sel[3]), .y(level4[i]));
         end
         mux2x1 M5(.a(level4[0]), .b(level4[1]), .sel(sel[4]), .y(out));
-        
     endgenerate
 endmodule
