@@ -97,7 +97,7 @@ module bcd_counter_tb(
 
         @(posedge clk_tb);
         #1;
-        rst_n_tb = 0;               // Test 5: Final reset test
+        rst_n_tb = 0;               // Test 4: Final reset test
         @(posedge clk_tb);
         #3;
         if(digit_tb !== 4'd0) begin            

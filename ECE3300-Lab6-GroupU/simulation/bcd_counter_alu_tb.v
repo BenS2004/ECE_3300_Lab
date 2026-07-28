@@ -1,23 +1,24 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Cal Poly Pomona
+// Engineer: Robert Stevenson
 // 
 // Create Date: 07/23/2026 03:01:02 PM
-// Design Name: 
+// Design Name: top implementation testbench
 // Module Name: bcd_counter_alu_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name: ECE3300 lab 6 group U
+// Target Devices: Nexys a7
+// Tool Versions: Vivado 2025.2
 // Description: 
 // 
 // Dependencies: 
 // 
-// Revision:
+// Revision: 
 // Revision 0.01 - File Created
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+
 
 
 module bcd_counter_alu_tb(
