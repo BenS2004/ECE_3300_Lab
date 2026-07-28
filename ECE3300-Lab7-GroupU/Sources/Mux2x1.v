@@ -29,6 +29,6 @@ module Mux2x1#(parameter BUS_SIZE = 16)(
     
     wire sel_not;
     assign sel_not = ~sel;   
-    assign y = (a & sel_not) | (b & sel);
+    assign y = (a & {BUS_SIZE{sel_not}}) | (b & {BUS_SIZE{sel}});
     
 endmodule
