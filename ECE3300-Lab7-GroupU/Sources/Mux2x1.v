@@ -1,14 +1,14 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Cal Poly Pomona
+// Engineer: Robert Stevenson
 // 
 // Create Date: 07/27/2026 12:59:04 PM
-// Design Name: 
+// Design Name: 2x1 Multiplexer
 // Module Name: Mux2x1
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name: ECE 3300 Lab7
+// Target Devices: Nexys a7
+// Tool Versions: Vivado 2025.2
 // Description: 
 // 
 // Dependencies: 
