@@ -1,14 +1,14 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Cal Poly Pomona
+// Engineer: Robert Stevenson
 // 
 // Create Date: 07/27/2026 12:49:10 PM
-// Design Name: 
+// Design Name: Fixed Clock Divider
 // Module Name: clock_divider_fixed
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name: ECE 3300 Lab 7
+// Target Devices: Nexys a7
+// Tool Versions: Vivado 2025.2
 // Description: 
 // 
 // Dependencies: 
