@@ -31,7 +31,7 @@ module debounce_toggle(
     reg [2:0] btn_val;
     reg btn_clean;
     reg btn_prev;
-    
+            
     always @(posedge clk_1kHz or negedge rst_n) begin
         if(!rst_n) begin
             btn_val = 3'b000;
@@ -52,8 +52,8 @@ module debounce_toggle(
         end
         else begin
             if(btn_clean && !btn_prev) 
-            btn_toggle <= ~btn_toggle;
-            
+                btn_toggle <= ~btn_toggle;
+                
             btn_prev <= btn_clean;
         end
     end

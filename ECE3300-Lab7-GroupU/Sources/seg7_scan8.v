@@ -24,8 +24,8 @@ module seg7_scan8(
                         input clk_1kHz,
                         input rst_n,
                         input [15:0] word,
-                        output reg [7:0] AN,
-                        output reg [6:0] SEG
+                        output reg [7:0] an,
+                        output reg [6:0] seg
                  );
              
     reg [2:0] sel;
@@ -65,24 +65,24 @@ module seg7_scan8(
     always @(*) begin
         case(sel)
             3'd0: begin
-                AN = 8'b11111110;
-                SEG = digit0;
+                an = 8'b11111110;
+                seg = digit0;
             end
             3'd1: begin
-                AN = 8'b11111101;
-                SEG = digit1;
+                an = 8'b11111101;
+                seg = digit1;
             end
             3'd2: begin
-                AN = 8'b11111011;
-                SEG = digit2;
+                an = 8'b11111011;
+                seg = digit2;
             end   
             3'd3: begin
-                AN = 8'b11110111;
-                SEG = digit3;
+                an = 8'b11110111;
+                seg = digit3;
             end    
             default: begin
-                AN = 8'b11111111;
-                SEG = 7'b1111111;
+                an = 8'b11111111;
+                seg = 7'b1111111;
             end 
         endcase
     end
