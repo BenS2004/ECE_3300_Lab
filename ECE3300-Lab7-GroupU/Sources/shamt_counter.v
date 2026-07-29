@@ -23,24 +23,30 @@
 
 module shamt_counter(
                         input wire clk_1kHz,
-                        input wire rst_n,
-                        input wire btn_toggle,
+                        input wire btn_raw,
                         output reg [1:0] shamt_high
                     );
-
+                    
+    reg [2:0] btn_val;
+    reg btn_clean;
     reg btn_prev;
     
-    always @(posedge clk_1kHz or negedge rst_n) begin
-        if(!rst_n) begin
-            shamt_high <= 2'b00;
-            btn_prev <= 1'b0;
-        end
-        else begin
-            btn_prev <= btn_toggle;
-            
-            if(btn_toggle != btn_prev)
-                shamt_high <= shamt_high + 2'b01;
-        end
+    initial begin
+        btn_val = 3'b000;
+        btn_clean = 1'b0;
+        btn_prev = 1'b0;
+        shamt_high = 2'b00;
+    end
+    
+    always @(posedge clk_1kHz) begin
+        btn_prev = btn_clean;
+        btn_val = {btn_val[1:0], btn_raw};
+        
+        if(btn_val == 3'b111) btn_clean = 1;
+        else if(btn_val == 3'b000) btn_clean = 0;
+        
+        if(btn_clean && !btn_prev)
+            shamt_high = shamt_high + 1'b1; 
     end
 
 endmodule
