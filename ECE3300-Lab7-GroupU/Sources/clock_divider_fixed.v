@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: Cal Poly Pomona
-// Engineer: Robert Stevenson
+// Engineer: Robert Stevenson & Ben Robles
 // 
 // Create Date: 07/27/2026 12:49:10 PM
 // Design Name: Fixed Clock Divider
@@ -13,34 +13,44 @@
 // 
 // Dependencies: 
 // 
-// Revision:
+// Revision: 0.02
 // Revision 0.01 - File Created
+// Revision 0.02 - Updated
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clock_divider_fixed #(parameter DIV_VALUE = 26'd50000000)(
-    input wire clk_10kHz,
-    output reg clk_div
-    );
-         
-    integer counter;
+module clock_divider_fixed(
+                                input wire clk_100MHz,
+                                output reg clk_2Hz,
+                                output reg clk_1kHz
+                          );
+                      
+    reg [15:0] counter_1kHz;
+    reg [7:0] counter_2Hz;
     
     initial begin
-        clk_div = 1'b0;        
-        counter = 32'b0;
-        clk_div = 1'b1;
+        counter_2Hz = 0;
+        counter_1kHz = 0;
+        clk_2Hz = 0;
+        clk_1kHz = 0;
     end
     
-    always @(posedge clk_10kHz)begin
-        counter = counter + 1;
-        if(counter == DIV_VALUE)begin
-            counter = 0;   
-            clk_div = ~clk_div;
-        end   
-         
+    always @(posedge clk_100MHz) begin
+        if(counter_1kHz == 16'd49_999) begin      // 100MHz / (2 x 50000) = 1kHz
+            counter_1kHz <= 0;
+            clk_1kHz <= ~clk_1kHz;
+        end
+        else counter_1kHz <= counter_1kHz + 1'b1;
     end
-   
+    
+    always @(posedge clk_1kHz) begin
+        if(counter_2Hz == 8'd249) begin           //  1kHz / (2 * 250) = 2Hz   
+            counter_2Hz <= 0;
+            clk_2Hz <= ~clk_2Hz;
+        end  
+        else counter_2Hz <= counter_2Hz + 1'b1;        
+    end 
     
 endmodule
