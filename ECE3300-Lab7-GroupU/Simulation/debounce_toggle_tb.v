@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: Ben Robles
+// Company: Ben Robles & Robert Stevenson
 // Engineer: Cal Poly Pomona
 // 
 // Create Date: 07/30/2026 02:18:52 PM
