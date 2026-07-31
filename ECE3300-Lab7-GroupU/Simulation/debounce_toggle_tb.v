@@ -21,7 +21,7 @@
 
 
 
-module debounce_toggle_tb(
+module debounce_toggle_TB(
 
                          );
                          
@@ -104,7 +104,7 @@ module debounce_toggle_tb(
                 $fatal;
             end    
             
-            btn_raw_tb = 1'b1;              // Test 3: Toggle off
+            btn_raw_tb = 1'b1;              // Test 5: Toggle off
             repeat(6) @(posedge clk_tb);
             #1;   
             btn_raw_tb = 1'b0;

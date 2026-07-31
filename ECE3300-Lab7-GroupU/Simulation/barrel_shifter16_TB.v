@@ -31,7 +31,7 @@ module barrel_shifter16_TB(
     reg dir, rot;
     
     barrel_shifter16 barrel_TB(.data_in(in_val), 
-    .shamt(shamt), .dir(dir), .rot(rot), .data_out(result));
+    .shamt(shamt), .dir(dir), .rotate(rot), .data_out(result));
     
     integer i, j;
     initial begin
