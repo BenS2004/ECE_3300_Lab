@@ -25,7 +25,7 @@ module top_lab8_tb(
                   );
               
     reg clk_tb;
-    reg btnc_n_tb;
+    reg btnc_tb;
     reg btnr_tb;
     reg [7:0] sw_tb;
     wire [3:0] led_tb;
@@ -35,7 +35,7 @@ module top_lab8_tb(
                   
     top_lab8 dut(
                     .clk100mhz(clk_tb),
-                    .btnc_n(btnc_n_tb),
+                    .btnc(btnc_tb),
                     .btnr(btnr_tb),
                     .sw(sw_tb),
                     .led(led_tb),
@@ -47,7 +47,7 @@ module top_lab8_tb(
     initial begin
         clk_tb = 1'b0;
         
-        btnc_n_tb = 1'b0;
+        btnc_tb = 1'b0;
         btnr_tb = 1'b0;
         sw_tb = 7'd0;
     end       
@@ -65,7 +65,7 @@ module top_lab8_tb(
     
     initial begin
         @(posedge clk_tb) #1;
-        btnc_n_tb = 1'b1;
+        btnc_tb = 1'b1;
         
         sw_tb = 8'd8;
         advance();
